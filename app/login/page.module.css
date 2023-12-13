@@ -1,0 +1,5 @@
+.brandImage {
+  background-image: url("/people.jpeg");
+  background-size: cover;
+  opacity: 0.8;
+}
