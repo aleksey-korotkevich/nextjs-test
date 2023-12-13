@@ -1,17 +1,32 @@
-import { sql } from "@vercel/postgres";
+import { gql } from "@apollo/client";
+import createApolloClient from "../apollo-client";
 
-export default async function List({
-  params,
-}: {
-  params: { user: string };
-}): Promise<JSX.Element> {
-  const { rows } = await sql`SELECT * from Pets`;
+export async function getListOfCountries() {
+  const client = createApolloClient();
+
+  const { data } = await client.query({
+    query: gql`
+      query Countries {
+        countries {
+          code
+          name
+          emoji
+        }
+      }
+    `,
+  });
+
+  return data.countries.slice(0, 4);
+}
+
+export default async function List(): Promise<JSX.Element> {
+  const countries = await getListOfCountries();
 
   return (
     <div>
-      {rows.map((row) => (
-        <div key={row.id}>
-          {row.id} - {row.quantity}
+      {countries.map((country) => (
+        <div key={country.name}>
+          {country.code} - {country.name}
         </div>
       ))}
     </div>
