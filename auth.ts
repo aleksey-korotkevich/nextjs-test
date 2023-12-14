@@ -5,6 +5,7 @@ import Credentials from "next-auth/providers/credentials";
 import { sql } from "@vercel/postgres";
 
 interface User {
+  id: string;
   username: string;
   password: string;
 }
@@ -36,7 +37,11 @@ export const { auth, signIn, signOut } = NextAuth({
           user.password
         );
 
-        if (passwordsMatch) return user;
+        if (passwordsMatch)
+          return {
+            ...user,
+            id: user.username,
+          };
 
         return null;
       },
