@@ -2,6 +2,9 @@
 
 import { signIn, signUp } from "@/auth";
 import { AuthError } from "next-auth";
+import createApolloClient from "../apollo-client";
+import { gql } from "@apollo/client";
+import { Country } from "./types";
 
 export async function authenticate(
   prevState: string | undefined,
@@ -40,4 +43,22 @@ export async function signUpAndAuthenticate(formData: FormData) {
     }
     throw error;
   }
+}
+
+export async function getListOfCountries() {
+  const client = createApolloClient();
+
+  const { data }: { data: { countries: Country[] } } = await client.query({
+    query: gql`
+      query Countries {
+        countries {
+          code
+          name
+          emoji
+        }
+      }
+    `,
+  });
+
+  return data.countries.slice(0, 4);
 }

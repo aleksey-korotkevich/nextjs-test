@@ -1,29 +1,10 @@
-import { gql } from "@apollo/client";
-import createApolloClient from "../apollo-client";
+import { getListOfCountries } from "@/app/lib/actions";
 
-export async function getListOfCountries() {
-  const client = createApolloClient();
-
-  const { data } = await client.query({
-    query: gql`
-      query Countries {
-        countries {
-          code
-          name
-          emoji
-        }
-      }
-    `,
-  });
-
-  return data.countries.slice(0, 4);
-}
-
-export default async function List(): Promise<JSX.Element> {
+export default async function List() {
   const countries = await getListOfCountries();
 
   return (
-    <div>
+    <div className="flex flex-col">
       {countries.map((country) => (
         <div key={country.name}>
           {country.code} - {country.name}
