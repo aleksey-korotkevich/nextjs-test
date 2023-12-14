@@ -70,7 +70,7 @@ export default function Login() {
 
               {state === "signin" ? (
                 <p className="mt-4 text-sm text-center text-gray-700">
-                  Don't have an account?{" "}
+                  Don&apos;t have an account?{" "}
                   <a
                     onClick={() => setState("signup")}
                     className="font-medium text-blue-600 hover:underline"
