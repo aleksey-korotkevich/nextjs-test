@@ -1,4 +1,4 @@
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import { sql } from "@vercel/postgres";
 import { NextResponse, NextRequest } from "next/server";
 
