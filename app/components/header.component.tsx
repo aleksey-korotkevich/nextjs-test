@@ -1,11 +1,20 @@
 import styles from "./header.component.module.css";
+import Image from "next/image";
 
 import { signOut } from "@/auth";
 
-export default function Header() {
+export default async function Header() {
   return (
     <header className={`flex justify-between p-3 ${styles.header}`}>
-      <div>Logo</div>
+      <div>
+        <Image
+          src="/next.svg"
+          width={394}
+          height={80}
+          alt="Logo"
+          className={styles.logo}
+        />
+      </div>
       <form
         action={async () => {
           "use server";

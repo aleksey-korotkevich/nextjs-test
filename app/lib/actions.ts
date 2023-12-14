@@ -1,10 +1,14 @@
 "use server";
 
-import { signIn, signUp } from "@/auth";
+import { signIn, signUp, signOut } from "@/auth";
 import { AuthError } from "next-auth";
 import createApolloClient from "../apollo-client";
 import { gql } from "@apollo/client";
 import { Country } from "./types";
+
+export async function logOut() {
+  await signOut();
+}
 
 export async function authenticate(
   prevState: string | undefined,
@@ -60,5 +64,5 @@ export async function getListOfCountries() {
     `,
   });
 
-  return data.countries.slice(0, 4);
+  return data.countries;
 }

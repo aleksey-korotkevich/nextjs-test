@@ -1,3 +1,9 @@
 .header {
   background-color: var(--accent-color);
+  max-height: 60px;
+}
+
+.logo {
+  max-height: 30px;
+  max-width: fit-content;
 }
